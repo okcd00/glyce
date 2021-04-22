@@ -39,14 +39,14 @@ class MsraNERProcessor(DataProcessor):
     # processor for the MSRA data set 
     def get_train_examples(self, data_dir):
         # see base class 
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.char.bmes")), "train")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.ner")), "train")
 
     def get_test_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.char.bmes")), "test")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.ner")), "test")
 
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.char.bmes")), "dev")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.ner")), "dev")
 
 
     def get_labels(self):
