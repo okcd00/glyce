@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-repo_path=/data/xiaoya/work/gitrepo/glyce/glyce
+repo_path=/home/chendian/glyce/glyce
 
 data_sign=bq
-data_dir=/data/nfsdata/nlp/datasets/sentence_pair/bq_corpus
-output_dir=/data/xiaoya/export-models  # change save_path !!!
+data_dir=/home/chendian/download/bq
+output_dir=/home/chendian/glyce/output/
 
-config_path=/data/xiaoya/work/gitrepo/glyce/glyce/configs/bq_glyce_bert.json
-bert_model=/data/nfsdata/nlp/BERT_BASE_DIR/chinese_L-12_H-768_A-12
+config_path=/home/chendian/glyce/glyce/configs/bq_glyce_bert.json
+bert_model=/home/chendian/download/ShannonBert
 
 task_name=clf
 max_seq_len=64
-train_batch=64
-dev_batch=64
-test_batch=64
+train_batch=32
+dev_batch=32
+test_batch=32
 learning_rate=2e-5
 num_train_epochs=4
 warmup=0.1
