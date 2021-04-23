@@ -112,6 +112,8 @@ def load_data(config):
     # data_processor = MsraNerProcessor()
     if config.data_sign == "msra_ner":
         data_processor = MsraNERProcessor()
+    elif config.data_sign == "weibo_ner":
+        data_processor = WeiboNERProcessor()
     elif config.data_sign == "resume_ner":
         data_processor = ResumeNERProcessor()
     elif config.data_sign == "ontonotes_ner":
