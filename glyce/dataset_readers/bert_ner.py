@@ -139,3 +139,51 @@ class ResumeNERProcessor(DataProcessor):
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples 
     
+    
+class WeiboNERProcessor(DataProcessor):
+    # processor for the Weibo dataset 
+    def get_train_examples(self, data_dir):
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.all.bmes"), delimiter=' '), "train")
+
+    def get_dev_examples(self, data_dir):
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.all.bmes"), delimiter=' '), "dev")
+
+    def get_test_examples(self, data_dir):
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.all.bmes"), delimiter=' '), "test")
+    
+    def collect_labels(self, ner_data):
+        all_tags = set()
+        for d in ner_data:
+            # tags = set([x.split('-')[-1] for x in d.label])
+            tags = set([x for x in d.label])
+            all_tags = all_tags.union(tags)
+        return sorted(list(all_tags), key=lambda x: (x.split('-')[-1], 'BMESO'.index(x.split('-')[0])))
+    
+    def get_labels(self):
+        return ['B-GPE.NAM', 'M-GPE.NAM', 'E-GPE.NAM', 'S-GPE.NAM',
+                'B-GPE.NOM', 'M-GPE.NOM', 'E-GPE.NOM', 'S-GPE.NOM',
+                'B-LOC.NAM', 'M-LOC.NAM', 'E-LOC.NAM', 'S-LOC.NAM',
+                'B-LOC.NOM', 'M-LOC.NOM', 'E-LOC.NOM', 'S-LOC.NOM',
+                'O',
+                'B-ORG.NAM', 'M-ORG.NAM', 'E-ORG.NAM', 'S-ORG.NAM', 
+                'B-ORG.NOM', 'M-ORG.NOM', 'E-ORG.NOM', 'S-ORG.NOM',
+                'B-PER.NAM', 'M-PER.NAM', 'E-PER.NAM', 'S-PER.NAM',
+                'B-PER.NOM', 'M-PER.NOM', 'E-PER.NOM', 'S-PER.NOM']
+
+    def _create_examples(self, lines, set_type):
+        # create examples for the training and dev sets 
+        examples = []
+        text_a, label = [], []
+        for (i, line) in enumerate(lines):
+            if not line:
+                guid = "{}_{}".format("weibo.ner", str(i))
+                examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+                text_a, label = [], []
+            else:
+                text_a.append(line[0])
+                label.append(line[1])
+        else:
+            guid = "{}_{}".format("weibo.ner", str(i))
+            examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+        return examples 
+    
