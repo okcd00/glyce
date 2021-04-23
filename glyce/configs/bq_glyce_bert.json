@@ -36,7 +36,7 @@
         "dropout": 0.5,
         "fc_merge": false,
         "font_channels": 8,
-        "font_name": "CJK/NotoSansCJKsc-Regular.otf",
+        "font_name": "cjk/NotoSansCJKsc-Regular.otf",
         "font_normalize": false,
         "font_size": 18,
         "glyph_cnn_type": "Yuxian8",
