@@ -25,15 +25,22 @@ from zhconv import convert
 
 default_font_size = 12
 default_font_path = os.path.join(root_path, "glyce/fonts")
-print("PRINT default FONT PATH")
-print("*"*20) 
-print(default_font_path)
-print("*"*20)
+print("PRINT default FONT PATH:", default_font_path)
+
 default_font_name = 'cjk/NotoSansCJKsc-Regular.otf'
 default_font = ImageFont.truetype(os.path.join(default_font_path, default_font_name), default_font_size)
-font_list = ['bronzeware_script/HanYiShouJinShuFan-1.ttf', 'cjk/NotoSansCJKsc-Regular.otf', 'seal_script/方正小篆体.ttf', 
-             'tablet_script/WenDingHuangYangJianWeiTi-2.ttf', 'regular_script/STKAITI.TTF', 'cursive_script/行草字体.ttf', 'clerical_script/STLITI.TTF',
-             'cjk/STFANGSO.TTF', 'clerical_script/方正古隶繁体.ttf', 'regular_script/STXINGKA.TTF']
+font_list = [
+    'bronzeware_script/HanYiShouJinShuFan-1.ttf', 
+    'cjk/NotoSansCJKsc-Regular.otf', 
+    'seal_script/方正小篆体.ttf', 
+    'tablet_script/WenDingHuangYangJianWeiTi-2.ttf', 
+    'regular_script/STKAITI.TTF', 
+    'cursive_script/行草字体.ttf', 
+    'clerical_script/STLITI.TTF',
+    'cjk/STFANGSO.TTF', 
+    'clerical_script/方正古隶繁体.ttf', 
+    'regular_script/STXINGKA.TTF'
+]
 
 
 
@@ -65,7 +72,10 @@ def multiple_glyph_embeddings(num_fonts, chosen_font, idx2word, font_size=12, us
 
 
 def vocab_glyph_embedding(idx2word, font_name='cjk/NotoSansCJKsc-Regular.otf', font_size=12, use_traditional=False, normalize=False):
-    font = ImageFont.truetype(os.path.join(default_font_path, font_name), font_size)
+    try:
+        font = ImageFont.truetype(os.path.join(default_font_path, font_name), font_size)
+    except Exception as e:
+        raise ValueError("Missing Font in path {}".format(os.path.join(default_font_path, font_name)))
     r = np.array([render_text_with_token_id(i, font, use_traditional, idx2word) for i in range(len(idx2word))])
     return (r - np.mean(r)) / np.std(r) if normalize else r
 
