@@ -1,8 +1,11 @@
-# Glyce: Glyph-vectors for Chinese Character Representations 
+# Glyce: Glyph-vectors for Chinese Character Representations (CD Branch)
 
 
 **Glyce** is an open-source toolkit built on top of PyTorch and is developed by [Shannon.AI](http://www.shannonai.com). 
 
+However, the [original repo](https://github.com/ShannonAI/glyce) can not run correctly.
+
+[okcd00](https://github.com/okcd00) forks it [here](https://github.com/okcd00/glyce) to make some fix operations, now we can train NER and SentPair tasks.
 
 
 ## Citation 
