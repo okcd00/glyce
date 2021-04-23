@@ -15,6 +15,7 @@ However, the [original repo](https://github.com/ShannonAI/glyce) can not run cor
   + `OSError: can not open resource`
 + Re-construct dataloaders and relevant utils for NER tasks.
   + MSRA, Resume, OntoNotes and Weibo on their released corpus [here](./docs/dataset_download.md).
+  + Add bash scripts for NER (there are scripts for sent-pair tasks only in origin repo.)
 
 
 ## Citation 
