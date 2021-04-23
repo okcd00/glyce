@@ -9,19 +9,19 @@ config_path=/home/chendian/glyce/glyce/configs/glyce_bert.json
 bert_model=/home/chendian/download/ShannonBert
 
 task_name=ner
-max_seq_len=64
+max_seq_len=500
 train_batch=32
 dev_batch=32
 test_batch=32
 learning_rate=2e-5
-num_train_epochs=4
+num_train_epochs=10
 warmup=0.1
 local_rank=-1
 seed=3306
-checkpoint=100
+checkpoint=250
 
 
-CUDA_VISIBLE_DEVICES=0 python3 ${repo_path}/bin/run_bert_glyce_tagger.py \
+CUDA_VISIBLE_DEVICES=0 python ${repo_path}/bin/run_bert_glyce_tagger.py \
 --data_sign ${data_sign} \
 --config_path ${config_path} \
 --data_dir ${data_dir} \
