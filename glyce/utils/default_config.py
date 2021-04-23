@@ -28,7 +28,7 @@ class GlyphEmbeddingConfig(object):
     """
 
     def __init__(self, cnn_dropout=0.3, dropout=0.2, use_batch_norm=False, use_highway=False, use_layer_norm=False,
-                 fc_merge=False, font_channels=1, font_name='CJK/NotoSansCJKsc-Regular.otf', font_normalize=False,
+                 fc_merge=False, font_channels=1, font_name='cjk/NotoSansCJKsc-Regular.otf', font_normalize=False,
                  glyph_embsize=1024, num_fonts_concat=1, output_size=2048,  font_size=12,
                  pretrained_char_embedding='', random_erase=False, random_fonts=0, subchar_embsize=512, subchar_type='',
                  use_traditional=False, word_embsize=1024, yuxian_merge=False, idx2word=None, level='char', idx2char=None,
@@ -54,7 +54,7 @@ class GlyphEmbeddingConfig(object):
             pretrained_word_embedding: list, pretrained word embedding
             font_channels: int, 塞到channel里的字体的数目，如果random_fonts > 0，则代表可供随机选择的总字体数
             random_fonts: int, 每个batch都random sample　n个不同字体塞到n个channel里
-            font_name: str, 形如'CJK/NotoSansCJKsc-Regular.otf'的字体名称，当font_channels=1时有效
+            font_name: str, 形如'cjk/NotoSansCJKsc-Regular.otf'的字体名称，当font_channels=1时有效
             font_size: int, 字体大小
             use_traditional: bool, 是否用繁体字代替简体字
             font_normalize: bool, 是否对字体输入的灰度值归一化，即减去均值，除以标准差
