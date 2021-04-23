@@ -10,15 +10,15 @@ bert_model=/home/chendian/download/ShannonBert
 
 task_name=ner
 max_seq_len=500
-train_batch=16
-dev_batch=16
-test_batch=16
+train_batch=6
+dev_batch=6
+test_batch=6
 learning_rate=2e-5
 num_train_epochs=10
 warmup=0.1
 local_rank=-1
 seed=3306
-checkpoint=320
+checkpoint=100
 
 
 CUDA_VISIBLE_DEVICES=0 python ${repo_path}/bin/run_bert_glyce_tagger.py \
