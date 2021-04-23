@@ -5,7 +5,16 @@
 
 However, the [original repo](https://github.com/ShannonAI/glyce) can not run correctly.
 
-[okcd00](https://github.com/okcd00) forks it [here](https://github.com/okcd00/glyce) to make some fix operations, now we can train NER and SentPair tasks.
+[okcd00](https://github.com/okcd00) forks it [here](https://github.com/okcd00/glyce) to make some fix operations, now we can train `NER` and `SentPair` tasks on their [released corpus](./docs/dataset_download.md).
+
+
+## CommitLogs
++ Fix the path to corpus files.
+  + `FileNotFoundError: [Errno 2] No such file or directory: '/data/bq/train.json'`
++ Fix the path to default font (`fonts/cjk` and `fonts/CJK`).
+  + `OSError: can not open resource`
++ Re-construct dataloaders and relevant utils for NER tasks.
+  + MSRA, Resume, OntoNotes and Weibo on their released corpus [here](./docs/dataset_download.md).
 
 
 ## Citation 
