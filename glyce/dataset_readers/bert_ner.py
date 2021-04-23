@@ -5,7 +5,8 @@
 
 
 # Author: Xiaoy LI 
-# Last update: 2019.04.01 
+# Modify: Dian CHEN
+# Last update: 2021.04.23 
 # First create: 2019.04.01 
 # Description:
 # dataset_processor.py 
@@ -58,9 +59,11 @@ class MsraNERProcessor(DataProcessor):
         # create examples for the training and dev sets. 
         examples = []
         for (i, line) in enumerate(lines):
+            if not line:
+                continue
             if line == "\n":
                 continue 
-
+            line = line[0].strip().split()
             text_a = line[0]
             text_b = None 
             label = line[1]
