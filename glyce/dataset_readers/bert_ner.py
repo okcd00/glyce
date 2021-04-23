@@ -62,14 +62,14 @@ class MsraNERProcessor(DataProcessor):
         for (i, line) in enumerate(lines):
             if not line:
                 guid = "{}_{}".format("msra.ner", str(i))
-                examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+                examples.append(InputExample(guid=guid, text_a=''.join(text_a), text_b=None, label=label))
                 text_a, label = [], []
             else:
                 text_a.append(line[0])
                 label.append(line[1])
         else:
             guid = "{}_{}".format("msra.ner", str(i))
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+            examples.append(InputExample(guid=guid, text_a=''.join(text_a), text_b=None, label=label))
         return examples 
 
 
@@ -106,7 +106,7 @@ class OntoNotesNERProcessor(DataProcessor):
             text_b = None 
             label = line[1].split(" ")
             guid = "{}_{}".format("ontonotes.ner", str(i))
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+            examples.append(InputExample(guid=guid, text_a=''.join(text_a), text_b=text_b, label=label))
         return examples 
 
 
@@ -136,7 +136,7 @@ class ResumeNERProcessor(DataProcessor):
             text_b = None 
             label = line[1].split(" ")
             guid = "{}_{}".format("resume.ner", str(i))
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+            examples.append(InputExample(guid=guid, text_a=''.join(text_a), text_b=text_b, label=label))
         return examples 
     
     
@@ -177,13 +177,13 @@ class WeiboNERProcessor(DataProcessor):
         for (i, line) in enumerate(lines):
             if not line:
                 guid = "{}_{}".format("weibo.ner", str(i))
-                examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+                examples.append(InputExample(guid=guid, text_a=''.join(text_a), text_b=None, label=label))
                 text_a, label = [], []
             else:
                 text_a.append(line[0])
                 label.append(line[1])
         else:
             guid = "{}_{}".format("weibo.ner", str(i))
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+            examples.append(InputExample(guid=guid, text_a=''.join(text_a), text_b=None, label=label))
         return examples 
     
