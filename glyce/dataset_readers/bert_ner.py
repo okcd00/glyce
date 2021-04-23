@@ -35,20 +35,20 @@ from tqdm import tqdm
 from glyce.dataset_readers.bert_data_utils import * 
 
 
-
 class MsraNERProcessor(DataProcessor):
     # processor for the MSRA data set 
     def get_train_examples(self, data_dir):
         # see base class 
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.ner")), "train")
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "train.ner"), delimiter=' '), "train")
 
     def get_test_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.ner")), "test")
-
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "test.ner"), delimiter=' '), "test")
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.ner")), "dev")
-
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "dev.ner"), delimiter=' '), "dev")
 
     def get_labels(self):
         # see base class 
@@ -56,34 +56,33 @@ class MsraNERProcessor(DataProcessor):
         "S-NT", "B-NT", "M-NT", "E-NT", "O"]
 
     def _create_examples(self, lines, set_type):
-        # create examples for the training and dev sets. 
+        # create examples for the training and dev sets 
         examples = []
+        text_a, label = [], []
         for (i, line) in enumerate(lines):
             if not line:
-                continue
-            if line == "\n":
-                continue 
-            line = line[0].strip().split()
-            text_a = line[0]
-            text_b = None 
-            label = line[1]
-            label = label.split(" ")
+                guid = "{}_{}".format("msra.ner", str(i))
+                examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+                text_a, label = [], []
+            else:
+                text_a.append(line[0])
+                label.append(line[1])
+        else:
             guid = "{}_{}".format("msra.ner", str(i))
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+            examples.append(InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples 
-
 
 
 class OntoNotesNERProcessor(DataProcessor):
     # processor for OntoNotes dataset 
     def get_train_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.char.bmes")), "train")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "train.char.bmes")), "train")
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.char.bmes")), "dev")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "dev.char.bmes")), "dev")
 
     def get_test_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.char.bmes")), "test")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "test.char.bmes")), "test")
 
     def get_labels(self):
         # see base class 
@@ -99,49 +98,44 @@ class OntoNotesNERProcessor(DataProcessor):
         # create examples for the training and dev sets 
         examples = []
         for (i, line) in enumerate(lines):
-            # if i == 0:
-            # continue 
-            if line == "\n":
-                continue 
-
             # print("check the content of line")
-            # print(line)
-            # line.split("\t")
-            text_a = line[0]
+            if not line:
+                continue
+            line = line[0].split("\t")
+            text_a = line[0].split(" ")
             text_b = None 
-            label = line[1]
-            label = label.split(" ")
+            label = line[1].split(" ")
             guid = "{}_{}".format("ontonotes.ner", str(i))
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples 
 
 
-
 class ResumeNERProcessor(DataProcessor):
     # processor for the Resume dataset 
     def get_train_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.char.bmes")), "train")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "train.char.bmes")), "train")
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.char.bmes")), "dev")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "dev.char.bmes")), "dev")
 
     def get_test_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "test.char.bmes")), "test")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "test.char.bmes")), "test")
 
     def get_labels(self):
         return ["O", "S-ORG", "S-NAME", "S-RACE", "B-TITLE", "M-TITLE", "E-TITLE", "B-ORG", "M-ORG", "E-ORG", "B-EDU", "M-EDU", "E-EDU", "B-LOC", "M-LOC", "E-LOC", "B-PRO", "M-PRO", "E-PRO", "B-RACE", "M-RACE", "E-RACE", "B-CONT", "M-CONT", "E-CONT", "B-NAME", "M-NAME", "E-NAME", ]
-
 
     def _create_examples(self, lines, set_type):
         # create examples for the training and dev sets 
         examples = []
         for (i, line) in enumerate(lines):
-            if line == "\n":
-                continue 
-            text_a = line[0]
+            # print("check the content of line")
+            if not line:
+                continue
+            line = line[0].split("\t")
+            text_a = line[0].split(" ")
             text_b = None 
-            label = line[1]
-            label = label.split(" ")
+            label = line[1].split(" ")
             guid = "{}_{}".format("resume.ner", str(i))
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples 
+    
