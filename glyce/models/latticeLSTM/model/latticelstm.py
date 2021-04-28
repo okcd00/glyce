@@ -150,7 +150,7 @@ class MultiInputLSTMCell(nn.Module):
         bias_batch = (self.bias.unsqueeze(0).expand(batch_size, *self.bias.size()))
         wh_b = torch.addmm(bias_batch, h_0, self.weight_hh)
         wi = torch.mm(input_, self.weight_ih)
-        i, o, g = torch.split(wh_b + wi, split_size=self.hidden_size, dim=1)
+        i, o, g = torch.split(wh_b + wi, split_size_or_sections=self.hidden_size, dim=1)
         i = torch.sigmoid(i)
         g = torch.tanh(g)
         o = torch.sigmoid(o)
