@@ -35,13 +35,15 @@ from glyce.model.latticeLSTM.model.bilstmcrf import BiLSTMCRF as SeqModel
 from glyce.model.latticeLSTM.utils.data import Data
 from glyce.model.latticeLSTM.utils.metric import get_ner_fmeasure
 
-
+DEFAULT_DATA_DIR_FOR_LATTICE = '/home/chendian/download/'
+DEFAULT_MODEL_DIR_FOR_LATTICE = '/home/chendian/flat_files/'
+DEFAULT_SOURCE_DIR_FOR_LATTICE = '/home/chendian/glyce/'
 
 parser = argparse.ArgumentParser(description='Tuning with bi-directional LSTM-CRF')
 parser.add_argument('--status', choices=['train', 'test', 'decode'], help='update algorithm', default='train')
 parser.add_argument('--name', type=str, default='CTB9POS')
 parser.add_argument('--mode', type=str, default='char')
-parser.add_argument('--data_dir', type=str, default='/data/nfsdata/nlp/datasets/sequence_labeling/CN_NER/')
+parser.add_argument('--data_dir', type=str, default=DEFAULT_DATA_DIR_FOR_LATTICE)
 parser.add_argument('--raw', type=str)
 parser.add_argument('--loadmodel', type=str)
 parser.add_argument('--gpu_id', type=int, default=0)
@@ -60,7 +62,7 @@ parser.add_argument('--HP_glyph_output_size', type=int, default=64)
 parser.add_argument('--HP_glyph_dropout', type=float, default=0.7)
 parser.add_argument('--HP_glyph_cnn_dropout', type=float, default=0.5)
 parser.add_argument('--setting_str', type=str, default='')
-parser.add_argument('--src_folder', type=str, default='/data/nfsdata/nlp/projects/wuwei')
+parser.add_argument('--src_folder', type=str, default=DEFAULT_SOURCE_DIR_FOR_LATTICE)
 
 args = parser.parse_args()
 os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
@@ -381,12 +383,15 @@ def load_model_decode(save_dir, data):
 
 
 if __name__ == '__main__':
-    char_emb = '/data/nfsdata/nlp/embeddings/chinese/gigaword/gigaword_chn.all.a2b.uni.ite50.vec'
+    char_emb = DEFAULT_MODEL_DIR_FOR_LATTICE + '/gigaword_chn.all.a2b.uni.ite50.vec'
     bichar_emb = ''
     # bichar_emb = '/data/nfsdata/nlp/embeddings/chinese/gigaword/gigaword_chn.all.a2b.bi.ite50.vec'
-    ctb_gaz = '/data/nfsdata/nlp/embeddings/chinese/ctb/ctb.50d.vec'  # NER
-    wiki_gaz = '/data/nfsdata/nlp/embeddings/chinese/wiki/zh.wiki.bpe.vs200000.d50.w2v.txt'
-    gaz_file = ctb_gaz if 'NER' in args.name else wiki_gaz
+    ctb_gaz = DEFAULT_MODEL_DIR_FOR_LATTICE + '/ctb.50d.vec'  # NER
+    wiki_gaz = DEFAULT_MODEL_DIR_FOR_LATTICE + '/zh.wiki.bpe.vs200000.d50.w2v.txt'
+    if 'NER' in args.name or 'ner' in args.name:
+        gaz_file = ctb_gaz  
+    else: 
+        gaz_file = wiki_gaz
 
     train_file = F'{args.data_dir}/{args.name}/train.{args.mode}.bmes'
     dev_file = F'{args.data_dir}/{args.name}/dev.{args.mode}.bmes'
