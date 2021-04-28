@@ -31,9 +31,9 @@ import datetime
 import numpy as np
 
 
-from glyce.model.latticeLSTM.model.bilstmcrf import BiLSTMCRF as SeqModel
-from glyce.model.latticeLSTM.utils.data import Data
-from glyce.model.latticeLSTM.utils.metric import get_ner_fmeasure
+from glyce.models.latticeLSTM.model.bilstmcrf import BiLSTMCRF as SeqModel
+from glyce.models.latticeLSTM.utils.data import Data
+from glyce.models.latticeLSTM.utils.metric import get_ner_fmeasure
 
 DEFAULT_DATA_DIR_FOR_LATTICE = '/home/chendian/download/'
 DEFAULT_MODEL_DIR_FOR_LATTICE = '/home/chendian/flat_files/'
