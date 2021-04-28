@@ -394,9 +394,14 @@ if __name__ == '__main__':
     else: 
         gaz_file = wiki_gaz
 
-    train_file = F'{args.data_dir}/{args.name}/train.{args.mode}.bmes'
-    dev_file = F'{args.data_dir}/{args.name}/dev.{args.mode}.bmes'
-    test_file = F'{args.data_dir}/{args.name}/test.{args.mode}.bmes'
+    if 'msra' in args.name.lower():
+        train_file = F'{args.data_dir}/{args.name}/train.ner'
+        dev_file = F'{args.data_dir}/{args.name}/dev.ner'
+        test_file = F'{args.data_dir}/{args.name}/test.ner'
+    else:
+        train_file = F'{args.data_dir}/{args.name}/train.{args.mode}.bmes'
+        dev_file = F'{args.data_dir}/{args.name}/dev.{args.mode}.bmes'
+        test_file = F'{args.data_dir}/{args.name}/test.{args.mode}.bmes'
     
     logger.info("Train file:" + train_file)
     logger.info("Dev file:" + dev_file)
