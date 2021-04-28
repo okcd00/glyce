@@ -313,9 +313,9 @@ def train(data, save_model_dir, seg=True):
             right, whole = predict_check(tag_seq, batch_label, mask)
             right_token += right
             whole_token += whole
-            sample_loss += loss.data[0]
-            total_loss += loss.data[0]
-            batch_loss += loss
+            sample_loss += loss.data.item()
+            total_loss += loss.data.item()
+            batch_loss += loss  # for backward()
 
             if end % 500 == 0:
                 temp_time = time.time()
