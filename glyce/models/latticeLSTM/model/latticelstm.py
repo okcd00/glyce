@@ -73,7 +73,7 @@ class WordLSTMCell(nn.Module):
         bias_batch = (self.bias.unsqueeze(0).expand(batch_size, *self.bias.size()))
         wh_b = torch.addmm(bias_batch, h_0, self.weight_hh)
         wi = torch.mm(input_, self.weight_ih)
-        f, i, g = torch.split(wh_b + wi, split_size=self.hidden_size, dim=1)
+        f, i, g = torch.split(wh_b + wi, split_size_or_sections=self.hidden_size, dim=1)
         c_1 = torch.sigmoid(f)*c_0 + torch.sigmoid(i)*torch.tanh(g)
         return c_1
 
