@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 class Data(object):
     def __init__(self):
-        self.MAX_SENTENCE_LENGTH = 250
+        self.MAX_SENTENCE_LENGTH = 500
         self.MAX_WORD_LENGTH = -1
         self.number_normalized = True
         self.norm_word_emb = True
